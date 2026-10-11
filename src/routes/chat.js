@@ -85,12 +85,13 @@ router.post("/", async (req, res) => {
     messages.push({ role: "user", content: mensaje });
 
     // Llamar a Groq
-    const completion = await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile",  // mejor modelo gratis disponible
-      messages,
-      max_tokens: 1024,
-      temperature: 0.7,
-    });
+// Llamar a Groq
+const completion = await groq.chat.completions.create({
+  model: process.env.GROQ_MODEL || "openai/gpt-oss-120b",
+  messages,
+  max_tokens: 1024,
+  temperature: 0.7,
+});
 
     const respuesta = completion.choices[0].message.content;
 
